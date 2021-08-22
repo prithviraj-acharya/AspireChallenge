@@ -107,6 +107,7 @@ export default function SpendingLimitScren(props) {
                   marginHorizontal: normalize(15),
                   fontFamily: Fonts.avenirNextBold,
                   fontSize: normalize(17),
+                  width: '80%',
                 }}
                 placeholder={'Enter your limit'}
                 onChangeText={(masked, unmasked, obfuscated) => {
