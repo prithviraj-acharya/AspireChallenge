@@ -6,6 +6,7 @@ export const Colors = {
   white: '#FFF',
   green: '#01D167',
   grey: '#EEEEEE',
+  textGrey: '#A7A7A7',
 };
 
 export const Fonts = {

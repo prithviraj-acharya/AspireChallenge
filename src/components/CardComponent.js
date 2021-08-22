@@ -6,6 +6,7 @@ import {Colors, Fonts, Icons} from '../themes/Themes';
 
 export default function CardComponent(props) {
   const [dataHidden, setDataHidden] = useState(false);
+  const hiddenCardData = ['⚈⚈⚈⚈', '⚈⚈⚈⚈', '⚈⚈⚈⚈', props.cardNumber[3]];
 
   return (
     <View style={{width: '100%', height: normalize(250)}}>
@@ -51,20 +52,40 @@ export default function CardComponent(props) {
               flexDirection: 'row',
               marginTop: normalize(20),
             }}>
-            {props.cardNumber.map(item => (
-              <Text style={styles.cardNumber}>{item}</Text>
-            ))}
+            {dataHidden &&
+              hiddenCardData.map(item => (
+                <Text style={[styles.cardNumber]}>{item}</Text>
+              ))}
+            {!dataHidden &&
+              props.cardNumber.map(item => (
+                <Text style={styles.cardNumber}>{item}</Text>
+              ))}
           </View>
           <View style={{flexDirection: 'row', marginTop: normalize(5)}}>
             <Text
-              style={[styles.cardNumber, {fontSize: normalize(12)}]}>{`Thru: ${
-              dataHidden ? '**/**' : props.validThru
-            }`}</Text>
-            <Text
               style={[
                 styles.cardNumber,
-                {marginStart: normalize(10), fontSize: normalize(12)},
-              ]}>{`CVV: ${dataHidden ? '***' : props.cvv}`}</Text>
+                {fontSize: normalize(12), letterSpacing: normalize(0)},
+              ]}>{`Thru: ${props.validThru}`}</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text
+                style={[
+                  styles.cardNumber,
+                  {
+                    marginStart: normalize(10),
+                    fontSize: normalize(12),
+                    marginEnd: normalize(0),
+                    letterSpacing: normalize(0),
+                  },
+                ]}>{`CVV: `}</Text>
+              <Text
+                style={[
+                  styles.cardNumber,
+                  {
+                    fontSize: dataHidden ? normalize(9) : normalize(12),
+                  },
+                ]}>{`${dataHidden ? '★★★' : props.cvv}`}</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -75,10 +96,14 @@ export default function CardComponent(props) {
 CardComponent.propTypes = {
   name: PropTypes.string,
   cardNumber: PropTypes.array,
+  validThru: PropTypes.string,
+  cvv: PropTypes.string,
 };
 CardComponent.defaultProps = {
   name: '',
   active: false,
+  validThru: '',
+  cvv: '',
 };
 
 const styles = StyleSheet.create({
@@ -103,17 +128,17 @@ const styles = StyleSheet.create({
   },
   appIcon: {
     height: normalize(50),
-    width: normalize(70),
+    width: normalize(60),
     position: 'absolute',
     right: normalize(15),
     top: Platform.OS === 'ios' ? normalize(2) : normalize(5),
   },
   visaIcon: {
-    height: normalize(50),
-    width: normalize(70),
+    height: normalize(40),
+    width: normalize(45),
     position: 'absolute',
     right: normalize(15),
-    bottom: Platform.OS === 'ios' ? normalize(2) : normalize(5),
+    bottom: Platform.OS === 'ios' ? normalize(5) : normalize(5),
   },
   cardDetailContainer: {
     height: normalize(105),
@@ -129,6 +154,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontFamily: Fonts.avenirNextDemiBold,
     fontSize: normalize(14),
-    marginEnd: normalize(18),
+    marginEnd: normalize(15),
+    letterSpacing: normalize(2),
   },
 });

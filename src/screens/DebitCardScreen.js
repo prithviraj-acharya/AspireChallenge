@@ -15,12 +15,13 @@ import {
 import MyStatusBar from '../utils/helpers/MyStatusBar';
 import {Colors, Fonts, Images} from '../themes/Themes';
 import normalize from '../utils/helpers/dimen';
-import CheckBox from '../components/CheckBox';
 import SmallGreenBox from '../components/SmallGreenBox';
 import CardComponent from '../components/CardComponent';
+import AccountOptionComponent from '../components/AccountOptionComponent';
+import {accountOptionData} from '../utils/staticData/AccountOptionData';
 
 export default function DebitCardScreen(props) {
-  const [checkbox, setCheckBox] = useState(false);
+  accountOptionData.map(item => console.log(item));
   return (
     <Fragment>
       <MyStatusBar
@@ -67,6 +68,20 @@ export default function DebitCardScreen(props) {
                 validThru={'11/25'}
                 cvv={'678'}
               />
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={{height: normalize(250)}}>
+                {accountOptionData.map((item, idx) => (
+                  <View key={idx}>
+                    <AccountOptionComponent
+                      icon={item.icon}
+                      checkboxReq={item.checkBoxReq}
+                      title={item.title}
+                      desc={item.desc}
+                    />
+                  </View>
+                ))}
+              </ScrollView>
             </View>
           </View>
         </View>
