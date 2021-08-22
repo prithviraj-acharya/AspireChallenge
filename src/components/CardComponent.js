@@ -53,12 +53,16 @@ export default function CardComponent(props) {
               marginTop: normalize(20),
             }}>
             {dataHidden &&
-              hiddenCardData.map(item => (
-                <Text style={[styles.cardNumber]}>{item}</Text>
+              hiddenCardData.map((item, idx) => (
+                <Text key={idx.toString()} style={[styles.cardNumber]}>
+                  {item}
+                </Text>
               ))}
             {!dataHidden &&
-              props.cardNumber.map(item => (
-                <Text style={styles.cardNumber}>{item}</Text>
+              props.cardNumber.map((item, idx) => (
+                <Text key={idx.toString()} style={styles.cardNumber}>
+                  {item}
+                </Text>
               ))}
           </View>
           <View style={{flexDirection: 'row', marginTop: normalize(5)}}>

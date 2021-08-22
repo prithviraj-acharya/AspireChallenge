@@ -273,6 +273,9 @@ PODS:
     - React-Core
   - react-native-safe-area-context (3.3.0):
     - React-Core
+  - react-native-simple-toast (1.1.3):
+    - React-Core
+    - Toast (~> 4.0.0)
   - React-perflogger (0.65.1)
   - React-RCTActionSheet (0.65.1):
     - React-Core/RCTActionSheetHeaders (= 0.65.1)
@@ -370,6 +373,9 @@ PODS:
     - React-RCTVibration
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNSVG (12.1.1):
+    - React
+  - Toast (4.0.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -415,6 +421,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-simple-toast (from `../node_modules/react-native-simple-toast`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -430,6 +437,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -448,6 +456,7 @@ SPEC REPOS:
     - fmt
     - libevent
     - OpenSSL-Universal
+    - Toast
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -485,6 +494,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-simple-toast:
+    :path: "../node_modules/react-native-simple-toast"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -515,6 +526,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -550,6 +563,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
   react-native-netinfo: 34f4d7a42f49157f3b45c14217d256bce7dc9682
   react-native-safe-area-context: 8465df05de8106c584b117f0e027e17174d6e02e
+  react-native-simple-toast: b986e6c1befdc211af3df1bae293278a44e32990
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
   React-RCTActionSheet: 7f3fa0855c346aa5d7c60f9ced16e067db6d29fa
   React-RCTAnimation: 2119a18ee26159004b001bc56404ca5dbaae6077
@@ -565,6 +579,8 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: bb9649cb43f0040f82948084a0044e45292c5be3
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNReanimated: 7245c2ff6dca3b42b6f77e800adf85ce68532759
+  RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

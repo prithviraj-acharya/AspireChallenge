@@ -8,5 +8,7 @@ const Icons = {
   freezeCard: require('../assets/icons/freezeCard.png'),
   getANewCard: require('../assets/icons/getANewCard.png'),
   decativateCard: require('../assets/icons/decativateCard.png'),
+  backIcon: require('../assets/icons/backIcon.png'),
+  setWeeklyLimit: require('../assets/icons/setWeeklyLimit.png'),
 };
 export default Icons;

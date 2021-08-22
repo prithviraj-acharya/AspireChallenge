@@ -19,15 +19,132 @@ import SmallGreenBox from '../components/SmallGreenBox';
 import CardComponent from '../components/CardComponent';
 import AccountOptionComponent from '../components/AccountOptionComponent';
 import {accountOptionData} from '../utils/staticData/AccountOptionData';
+import BottomSheet from 'reanimated-bottom-sheet';
+import {useDispatch, useSelector} from 'react-redux';
+import showErrorAlert from '../utils/helpers/Toast';
+import {getUserDetails, setUserSpendingLimit} from '../redux/action/AuthAction';
+import {
+  GET_USER_DETAILS_REQUEST,
+  GET_USER_DETAILS_SUCCESS,
+  SET_USER_SPENDING_LIMIT_REQUEST,
+  SET_USER_SPENDING_LIMIT_SUCCESS,
+} from '../redux/store/TypeConstants';
+import status from '../utils/helpers/status';
+import {useFocusEffect} from '@react-navigation/native';
+import Loader from '../utils/helpers/AuthLoader';
+import * as Progress from 'react-native-progress';
 
 export default function DebitCardScreen(props) {
-  accountOptionData.map(item => console.log(item));
+  const dispatch = useDispatch();
+  const AuthReducer = useSelector(state => state.AuthReducer);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(getUserDetails());
+    }, []),
+  );
+
+  const renderContent = () => (
+    <View style={styles.bottomViewContainer}>
+      <View
+        style={{
+          width: '90%',
+          alignSelf: 'center',
+          position: 'absolute',
+          top: normalize(-100),
+        }}>
+        <CardComponent
+          name={`${
+            AuthReducer?.userDetails?.first_name +
+            AuthReducer?.userDetails?.last_name
+          }`}
+          cardNumber={['5647', '1234', '9998', '2312']}
+          validThru={'11/25'}
+          cvv={'678'}
+        />
+
+        {AuthReducer?.spendingLimit?.setLimit && (
+          <View style={{marginBottom: normalize(10)}}>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text
+                style={{
+                  fontFamily: Fonts.avenirNextMedium,
+                  marginVertical: normalize(5),
+                }}>
+                Debit card spending limit
+              </Text>
+              <Text
+                style={{
+                  fontFamily: Fonts.avenirNextMedium,
+                  marginVertical: normalize(5),
+                  color: Colors.green,
+                }}>
+                {`$365 | `}
+                <Text style={{color: Colors.textGrey}}>
+                  {AuthReducer?.spendingLimit?.amount}
+                </Text>
+              </Text>
+            </View>
+            <Progress.Bar
+              progress={0.3}
+              width={normalize(280)}
+              height={normalize(10)}
+              color={Colors.green}
+              borderRadius={15}
+              unfilledColor={Colors.lightGreen}
+            />
+          </View>
+        )}
+
+        {(AuthReducer.status === GET_USER_DETAILS_SUCCESS ||
+          AuthReducer.status === SET_USER_SPENDING_LIMIT_REQUEST ||
+          AuthReducer.status === SET_USER_SPENDING_LIMIT_SUCCESS) &&
+          accountOptionData.map((item, idx) => (
+            <View key={idx}>
+              <AccountOptionComponent
+                idx={idx}
+                icon={item.icon}
+                checkboxReq={item.checkBoxReq}
+                title={item.title}
+                desc={
+                  idx !== 1
+                    ? item.desc
+                    : AuthReducer?.spendingLimit?.setLimit
+                    ? `Your weekly spending limit is S$ ${
+                        AuthReducer?.spendingLimit?.amount.split('.')[0]
+                      }`
+                    : item.desc
+                }
+                onSelected={check => {
+                  if (idx === 1) {
+                    if (check) props.navigation.navigate('SpendingLimitScren');
+                    else {
+                      dispatch(
+                        setUserSpendingLimit({
+                          setLimit: false,
+                        }),
+                      );
+                    }
+                  }
+                }}
+              />
+            </View>
+          ))}
+      </View>
+    </View>
+  );
+
+  const sheetRef = React.useRef(null);
+
   return (
     <Fragment>
       <MyStatusBar
         barStyle={'light-content'}
         backgroundColor={Colors.themeColor}
       />
+      <Loader visible={AuthReducer.status === GET_USER_DETAILS_REQUEST} />
+
       <SafeAreaView style={{flex: 1, backgroundColor: Colors.white}}>
         <View style={styles.container}>
           <Image
@@ -54,36 +171,13 @@ export default function DebitCardScreen(props) {
               </Text>
             </View>
           </View>
-          <View style={styles.bottomViewContainer}>
-            <View
-              style={{
-                width: '90%',
-                alignSelf: 'center',
-                position: 'absolute',
-                top: normalize(-100),
-              }}>
-              <CardComponent
-                name={'Mark Henry'}
-                cardNumber={['5647', '1234', '9998', '2312']}
-                validThru={'11/25'}
-                cvv={'678'}
-              />
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                style={{height: normalize(250)}}>
-                {accountOptionData.map((item, idx) => (
-                  <View key={idx}>
-                    <AccountOptionComponent
-                      icon={item.icon}
-                      checkboxReq={item.checkBoxReq}
-                      title={item.title}
-                      desc={item.desc}
-                    />
-                  </View>
-                ))}
-              </ScrollView>
-            </View>
-          </View>
+          <BottomSheet
+            ref={sheetRef}
+            snapPoints={['91%', '68.5%']}
+            borderRadius={10}
+            renderContent={renderContent}
+            initialSnap={1}
+          />
         </View>
       </SafeAreaView>
     </Fragment>
@@ -121,7 +215,7 @@ const styles = StyleSheet.create({
 
   bottomViewContainer: {
     width: '100%',
-    height: '100%',
+    height: normalize(620),
     backgroundColor: Colors.white,
     marginTop: normalize(100),
     borderTopStartRadius: normalize(30),

@@ -11,9 +11,9 @@ LogBox.ignoreAllLogs();
 
 const Aspire = () => {
   return (
-    // <Provider store={store}>
-    <App />
-    //</Provider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   );
 };
 AppRegistry.registerComponent(appName, () => Aspire);
