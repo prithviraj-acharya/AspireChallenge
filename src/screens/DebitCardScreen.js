@@ -222,3 +222,4 @@ const styles = StyleSheet.create({
     borderTopEndRadius: normalize(30),
   },
 });
+//"react-native-reanimated": "^2.2.0",
