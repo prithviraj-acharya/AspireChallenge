@@ -21,7 +21,7 @@ export default function AccountOptionComponent(props) {
       style={{
         width: '98%',
         height: normalize(50),
-        marginVertical: normalize(5),
+        marginVertical: normalize(8),
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: props.checkboxReq ? 'space-between' : 'flex-start',
